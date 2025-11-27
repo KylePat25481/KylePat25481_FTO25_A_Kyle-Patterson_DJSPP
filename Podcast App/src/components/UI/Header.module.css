@@ -1,0 +1,21 @@
+/* Header.css */
+.appHeader {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 14px 20px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.logo { display:flex; align-items:center; gap:8px; color:var(--accent); }
+.brand { font-weight:700; font-size:1rem; color:var(--text); margin-left:6px; }
+.navCenter { display:flex; gap:24px; align-items:center; }
+.navLink { color:var(--muted); text-decoration:none; font-weight:600; padding:6px 10px; border-radius:6px; }
+.navLink.active { color:var(--text); border-bottom:2px solid var(--accent); }
+.headerRight { display:flex; gap:12px; align-items:center; }
+.iconBtn { width:36px; height:36px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; border:1px solid transparent; background:transparent; cursor:pointer; color:var(--icon-muted); }
+.iconBtn:hover { background:var(--nav-button-bg); color:var(--text); }
+.avatar img { width:34px; height:34px; border-radius:50%; object-fit:cover; border:1px solid var(--card-border); }
