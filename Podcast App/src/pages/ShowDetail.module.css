@@ -1,0 +1,13 @@
+.container { padding: 20px; max-width: 1100px; margin:0 auto; color:var(--text);}
+.back { background:none; border:none; color:var(--accent); font-weight:600; cursor:pointer; margin-bottom:12px;}
+.header { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+.header img { width:120px; height:120px; border-radius:16px; object-fit:cover; }
+.info { flex:1; }
+.info h1 { margin:0; font-size:1.4rem; }
+.info p { margin:6px 0; font-size:0.9rem; color:var(--text-muted); }
+.chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+.chip { background:var(--accent); color:white; font-size:0.7rem; padding:2px 6px; border-radius:12px; }
+
+.episodes { margin-top:20px; display:flex; flex-direction:column; gap:8px; }
+.episodeCard { padding:8px 12px; background:var(--card-bg); border-radius:12px; cursor:pointer; transition:0.2s; }
+.episodeCard:hover { background:var(--accent); color:white; }
