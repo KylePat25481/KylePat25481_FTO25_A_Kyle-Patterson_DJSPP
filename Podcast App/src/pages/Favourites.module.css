@@ -1,0 +1,279 @@
+/* Page container */
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 20px;
+  color: var(--text);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.heading {
+  font-size: 1.6rem;
+  margin: 0 0 6px 0;
+  font-weight: 700;
+}
+
+.sub {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Controls row (right side) */
+.controlsRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  align-items: flex-start;
+}
+
+.select {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text);
+  min-width: 140px;
+}
+
+/* Content */
+.content {
+  margin-top: 10px;
+}
+
+/* Empty state */
+.empty {
+  padding: 36px;
+  text-align: center;
+  background: var(--paper);
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+}
+
+/* Podcast group card */
+.podcastGroup {
+  background: transparent;
+  margin-bottom: 22px;
+}
+
+.podcastHeader {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* Podcast cover on left */
+.podcastCover {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+}
+
+/* Podcast meta (title + genres) */
+.podcastMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.podcastTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.count {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-left: 8px;
+}
+
+/* Episode list */
+.episodeList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Episode row */
+.episodeRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+
+/* left side of episode row: cover + details */
+.episodeLeft {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex: 1;
+}
+
+/* episode thumbnail */
+.thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--card-border);
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* episode info */
+.episodeInfo {
+  flex: 1;
+  min-width: 0; /* allow truncation */
+}
+
+.epTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.epTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* heart button */
+.heartBtn {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  line-height: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  color: var(--icon-muted);
+  cursor: pointer;
+  transition: transform .12s ease, color .12s ease;
+}
+
+.heartBtn:hover {
+  transform: translateY(-2px);
+}
+
+.heartActive {
+  color: #ff4d6d;
+}
+
+/* meta, description, date */
+.epMeta {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.seasonInfo {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.epDesc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.addedAt {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* actions (play) on the right */
+.episodeActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+.playBtn {
+  background: #0f1724;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.playBtn:hover {
+  opacity: 0.95;
+}
+
+/* Spacer to prevent overlap with fixed player */
+.playerSpacer {
+  height: 72px;
+}
+
+/* small screens */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .controlsRow {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .podcastHeader {
+    align-items: flex-start;
+  }
+
+  .playBtn {
+    padding: 8px 10px;
+  }
+}
