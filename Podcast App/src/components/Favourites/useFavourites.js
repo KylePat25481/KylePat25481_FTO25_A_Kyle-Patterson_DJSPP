@@ -22,7 +22,9 @@ export function useFavourites() {
   const toggle = (episode, podcastMeta = {}) => {
     setFavourites((prev) => {
       const exists = prev.find((e) => e.id === episode.id);
-      if (exists) return prev.filter((e) => e.id !== episode.id);
+      if (exists) {
+        return prev.filter((e) => e.id !== episode.id);
+      }
 
       const payload = {
         id: episode.id,
