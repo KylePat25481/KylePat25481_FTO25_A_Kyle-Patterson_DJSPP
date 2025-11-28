@@ -32,9 +32,6 @@ export default function PodcastCard({ podcast }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h3>{podcast.title}</h3>
         <div>
-          <button aria-label="Play show" onClick={handlePlayShowSample} style={{ marginRight: 8 }} onMouseDown={(e) => e.stopPropagation()}>
-            ▶
-          </button>
           <button onClick={(e) => { e.stopPropagation(); toggle({
             episodeId: `show-${podcast.id}`,
             title: podcast.title,
