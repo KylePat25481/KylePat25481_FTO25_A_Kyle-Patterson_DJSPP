@@ -1,28 +1,27 @@
 .playerWrapper {
-  position: sticky; /* use sticky so content scrolls above player */
+  position: sticky;
   bottom: 0;
-  left: 0;
   width: 100%;
+  padding: 8px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
   background: var(--player-bg);
   border-top: 1px solid var(--border);
-  border-radius: 12px 12px 0 0;
-  gap: 12px;
   z-index: 9999;
+  gap: 16px;
 }
 
+/* LEFT SECTION */
 .left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .art {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 8px;
   object-fit: cover;
 }
@@ -34,7 +33,7 @@
 }
 
 .episodeTitle {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text);
 }
@@ -44,58 +43,114 @@
   color: var(--text-muted);
 }
 
+/* CENTER CONTROLS */
 .center {
-  flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 8px;
 }
 
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-}
-
-.controls button {
+.iconButton {
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 0.95rem;
+  color: var(--text);
+  padding: 4px;
 }
 
-.progress {
-  width: 100%;
+.playButton {
+  border: none;
+  background: var(--accent);
+  color: white;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  height: 3px;
-  border-radius: 2px;
-  accent-color: var(--accent);
 }
 
+/* RIGHT SECTION */
 .right {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
 }
 
-.volume {
-  width: 60px;
+/* Progress bar moved here */
+.progress {
+  width: 140px;
+  height: 4px;
   cursor: pointer;
-  accent-color: #1988f7;
+  accent-color: var(--accent);
 }
 
-.themeBtn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 0.95rem;
+.time {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+  text-align: center;
 }
 
 
-/* MOBILE */
-@media (max-width:768px){
-  .playerWrapper { flex-direction: column; padding: 8px; gap:8px; }
-  .info { max-width: 100%; text-align:center; }
-  .controls { justify-content:center; flex-wrap:wrap; gap:4px; }
-  .seek, .volume { width: 100%; }
+/* VOLUME */
+.volumeWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.volumeSliderVertical {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) rotate(-90deg); /* makes it vertical */
+  width: 80px; /* after rotation = height */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.volumeWrapper:hover .volumeSliderVertical {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .playerWrapper {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .left,
+  .center,
+  .right {
+    display: flex;
+    justify-content: center;
+    margin: 6px 0;
+  }
+
+  .center button {
+    margin: 0 8px;
+  }
+
+  .volumeWrapper {
+    flex-direction: row; /* keep volume horizontal on mobile */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .volumeSlider {
+    width: 80px; /* smaller on mobile */
+    margin-left: 6px;
+  }
+
+  .progress {
+    width: 100%; /* progress bar stretches */
+    margin: 6px 0;
+  }
 }
