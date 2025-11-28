@@ -1,29 +1,52 @@
-// src/components/UI/Header.jsx
-import React from "react";
+// src/components/Header/Header.jsx
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import ThemeToggle from "../Theme/ThemeToggle";
-import "./Header.module.css";
+import styles from "./Header.module.css"; // <<< use CSS module properly
 
 export default function Header() {
-  const loc = useLocation();
+  const location = useLocation();
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY < lastScrollY || window.scrollY < 50) {
+        setShowHeader(true);
+      } else {
+        setShowHeader(false);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <header className="appHeader container">
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <div className="logo">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
-            <path fill="currentColor" d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9Zm-1 13v-6l5 3-5 3Z" />
-          </svg>
+    <header className={`${styles.appHeader} ${showHeader ? styles.visible : styles.hidden}`}>
+      {/* LEFT */}
+      <div className={styles.left}>
+        <div className={styles.brand}>
+          <h1>🎙️ Podcast App</h1>
         </div>
-        <div className="brand"><h1>🎙️ Podcast App</h1> </div>
       </div>
 
-      <nav className="navCenter">
-        <NavLink to="/" className={({isActive}) => isActive ? "navLink active" : "navLink"}>Home</NavLink>
-        <NavLink to="/favourites" className={({isActive}) => isActive ? "navLink active" : "navLink"}>Favourites</NavLink>
-      </nav>
+      {/* CENTER (expands to push nav to true center) */}
+      <div className={styles.navWrapper}>
+        <nav className={styles.navCenter}>
+          <NavLink to="/" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}>
+            Home
+          </NavLink>
 
-      <div className="headerRight">
+          <NavLink to="/favourites" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}>
+            Favourites
+          </NavLink>
+        </nav>
+      </div>
+
+      {/* RIGHT */}
+      <div className={styles.headerRight}>
         <ThemeToggle />
       </div>
     </header>
