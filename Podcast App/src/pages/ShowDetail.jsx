@@ -18,7 +18,7 @@ export default function ShowDetail() {
   const [error, setError] = useState(null);
 
   const player = usePlayer();
-  const favs = useFavourites();
+  const { toggle, isFavourited } = useFavourites();
 
   useEffect(() => {
     setLoading(true);
@@ -28,19 +28,30 @@ export default function ShowDetail() {
   if (loading) return <Loading message="Loading podcast..." />;
   if (error) return <Error message={`Error occurred while fetching podcast: ${error}`} />;
 
-const handlePlayEpisode = (episode, episodeIndex, seasonIndex) => {
-  if (!episode) return;
+  const handlePlayEpisode = (episode, episodeIndex, seasonIndex) => {
+    if (!episode) return;
 
-  player.playEpisode({
-    title: episode.title,
-    audio: episode.audio || episode.enclosure || episode.file,
-    image: episode.image || podcast.image,
-    showTitle: podcast.title,
-    season: seasonIndex + 1,
-    number: episodeIndex + 1,
-  });
-};
+    player.playEpisode({
+      id: episode.id,
+      title: episode.title,
+      audio: episode.audio || episode.enclosure || episode.file,
+      image: episode.image || podcast.image,
+      showTitle: podcast.title,
+      podcastId: podcast.id,
+      podcastImage: podcast.image,
+      season: episode.season ?? seasonIndex + 1,
+      number: episode.number ?? episodeIndex + 1,
+    });
+  };
 
+  const handleToggleFavourite = (episode) => {
+    if (!episode) return;
+    toggle(episode, {
+      id: podcast.id,
+      title: podcast.title,
+      image: podcast.image,
+    });
+  };
 
   return (
     <PodcastDetail
@@ -48,8 +59,8 @@ const handlePlayEpisode = (episode, episodeIndex, seasonIndex) => {
       genres={genres}
       onBack={() => navigate(-1)}
       onPlayEpisode={handlePlayEpisode}
-      onToggleFavourite={(payload) => favs.toggle(payload)}
-      isFavourited={favs.isFavourited}
+      onToggleFavourite={handleToggleFavourite}
+      isFavourited={isFavourited}
     />
   );
 }
