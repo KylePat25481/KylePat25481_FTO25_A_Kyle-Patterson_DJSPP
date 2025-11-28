@@ -20,11 +20,31 @@ export default function PodcastDetail({
     console.log("Clicked recommended show:", item.title);
   };
 
+  // Determine if back button should show
+  const showBackButton = typeof onBack === "function";
+
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={onBack}>
-        ← Back
-      </button>
+      {/* Universal Back Button */}
+      {showBackButton && (
+        <button
+          className={styles.backButton}
+          onClick={onBack}
+          style={{
+            position: "fixed", // fixed so it’s always visible
+            top: 16,
+            left: 16,
+            zIndex: 1000,
+            background: "rgba(255,255,255,0.9)",
+            border: "none",
+            padding: "0.5rem 1rem",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          ← Back
+        </button>
+      )}
 
       <div className={styles.header}>
         <img src={podcast.image} alt="Podcast Cover" className={styles.cover} />
