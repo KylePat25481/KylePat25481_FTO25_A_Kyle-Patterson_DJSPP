@@ -4,6 +4,7 @@ import Carousel from "../components/Carousel/Carousel";
 import PodcastDetail from "../components/Podcasts/PodcastDetail";
 import { genres } from "../data";
 import { PodcastContext } from "../context/PodcastContext";
+import { Helmet } from "react-helmet"; // <-- Import Helmet
 import styles from "./Home.module.css";
 
 export default function Home() {
@@ -18,6 +19,32 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      {/* Helmet for SEO and social media previews */}
+      <Helmet>
+        <title> Podcast App – Browse Shows & Episodes</title>
+        <meta
+          name="description"
+          content="Discover, listen, and favourite your favourite podcasts and episodes."
+        />
+        {/* Open Graph */}
+        <meta property="og:title" content=" Podcast App – Browse Shows & Episodes" />
+        <meta
+          property="og:description"
+          content="Discover, listen, and favourite your favourite podcasts and episodes."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/" />
+        <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content=" Podcast App – Browse Shows & Episodes" />
+        <meta
+          name="twitter:description"
+          content="Discover, listen, and favourite your favourite podcasts and episodes."
+        />
+        <meta name="twitter:image" content="%PUBLIC_URL%/og-image.png" />
+      </Helmet>
+
       <section className={styles.controls}>
         <SearchBar />
         <GenreFilter genres={genres} />
