@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { usePlayer } from "../components/AudioPlayer/PlayerProvider";
-import { useFavourites } from "../components/favourites/useFavourites";
+import { useFavourites } from "../components/Favourites/useFavourites";
 import styles from "./Favourites.module.css";
 
 export default function Favourites() {
@@ -10,7 +10,7 @@ export default function Favourites() {
   const [sort, setSort] = useState("newest");
   const [showFilter, setShowFilter] = useState("all");
 
-  // Group favourites by podcast
+  // Group by podcast
   const grouped = useMemo(() => {
     const map = {};
     favourites.forEach((ep) => {
@@ -29,7 +29,7 @@ export default function Favourites() {
       map[podcastId].episodes.push(ep);
     });
 
-    // Sort episodes within each podcast group
+    // Sort episodes within each group
     Object.values(map).forEach((group) => {
       group.episodes.sort((a, b) =>
         sort === "newest"
@@ -47,18 +47,15 @@ export default function Favourites() {
       : grouped.filter((g) => g.podcastId === showFilter);
 
   const handleToggleFavourite = (ep, group) => {
-    toggle({
-      ...ep,
-      podcastId: group?.podcastId || ep.podcastId || ep.id,
-      podcastTitle: group?.podcastTitle || ep.podcastTitle || "Unknown Show",
-      podcastImage: group?.podcastImage || ep.podcastImage || ep.image,
-      addedAt: new Date().toISOString(),
+    toggle(ep, {
+      id: group?.podcastId,
+      title: group?.podcastTitle,
+      image: group?.podcastImage,
     });
   };
 
   return (
     <div className={styles.page}>
-      {/* PAGE HEADER */}
       <div className={styles.header}>
         <div>
           <h1 className={styles.heading}>Favourite Episodes</h1>
@@ -113,7 +110,7 @@ export default function Favourites() {
                   />
                   <div className={styles.podcastMeta}>
                     <span className={styles.podcastTitle}>
-                      {group.podcastTitle}{" "}
+                      {group.podcastTitle}
                       <span className={styles.count}>
                         ({group.episodes.length} episodes)
                       </span>
@@ -122,12 +119,12 @@ export default function Favourites() {
                 </summary>
 
                 <div className={styles.episodeList}>
-                  {group.episodes.map((ep, idx) => (
+                  {group.episodes.map((ep) => (
                     <div key={ep.id} className={styles.episodeRow}>
                       <div className={styles.episodeLeft}>
                         <div className={styles.thumb}>
                           <img
-                            src={ep.image || group.podcastImage || "/placeholder-cover.png"}
+                            src={ep.image || group.podcastImage}
                             alt={ep.title}
                           />
                         </div>
@@ -140,24 +137,25 @@ export default function Favourites() {
                             <br />
                             Added on {new Date(ep.addedAt).toLocaleDateString()}
                           </p>
-
-                          <button
-                            className={`${styles.heartBtn} ${
-                              isFavourited(ep) ? styles.heartActive : ""
-                            }`}
-                            onClick={() => handleToggleFavourite(ep, group)}
-                          >
-                            ♥ Favourite
-                          </button>
                         </div>
                       </div>
 
-                      <button
-                        className={styles.playBtn}
-                        onClick={() => player.playEpisode(ep, idx, group.episodes)}
-                      >
-                        ▶ Play
-                      </button>
+                      <div className={styles.episodeActions}>
+                        <button
+                          className={`${styles.heartBtn} ${
+                            isFavourited(ep) ? styles.heartActive : ""
+                          }`}
+                          onClick={() => handleToggleFavourite(ep, group)}
+                        >
+                          ♥
+                        </button>
+                        <button
+                          className={styles.playBtn}
+                          onClick={() => player.playEpisode(ep)}
+                        >
+                          ▶ Play
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
