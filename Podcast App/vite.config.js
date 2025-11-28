@@ -6,5 +6,5 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
-  base: "/"
+  base: process.env.VITE_BASE_PATH || "/KylePat25481_FTO25_A_Kyle-Patterson_DJSPP",
 });
