@@ -37,7 +37,7 @@
 
 .controlsRow {
   display: flex;
-  gap: 30px;
+  gap: 30px; /* increased spacing */
   margin-top: 12px;
   position: sticky;
   top: 120px;
@@ -49,7 +49,7 @@
   flex-direction: column;
   font-size: 0.85rem;
   color: var(--muted);
-  min-width: 180px;
+  min-width: 160px;
 }
 
 .select {
@@ -67,9 +67,9 @@
   background-size: 10px 6px;
 }
 
-/* Dark mode fix */
+/* Dark mode fix for select only */
 [data-theme="dark"] .select {
-  background: #fff;
+  background: #fff; /* keep dropdown white */
   color: #111;
   border: 1px solid #ddd;
 }
@@ -133,6 +133,7 @@
   border-radius: 12px;
   margin-bottom: 12px;
   box-shadow: var(--shadow);
+  gap: 12px;
 }
 
 .episodeLeft {
@@ -160,7 +161,13 @@
 .episodeInfo {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+}
+
+.epTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .epTitle {
@@ -172,15 +179,23 @@
 .epMeta {
   color: var(--muted);
   font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+/* NEW: episode actions container (heart + play) */
+.episodeActions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
 }
 
 .heartBtn {
   border: none;
   background: transparent;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
   color: var(--icon-muted);
-  margin-bottom: 8px;
 }
 
 .heartActive {
@@ -203,10 +218,12 @@
     flex-direction: column;
     align-items: stretch;
   }
-
   .controlsRow {
     flex-direction: column;
     gap: 12px;
+  }
+  .episodeActions {
+    align-items: stretch;
   }
 }
 
