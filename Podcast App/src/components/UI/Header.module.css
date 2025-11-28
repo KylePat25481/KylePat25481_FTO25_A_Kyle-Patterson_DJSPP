@@ -1,21 +1,141 @@
-/* Header.css */
 .appHeader {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 30px;
   background: var(--header-bg);
   border-bottom: 1px solid var(--header-border);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
+  transition: transform 0.3s ease, background 0.3s;
 }
-.logo { display:flex; align-items:center; gap:8px; color:var(--accent); }
-.brand { font-weight:700; font-size:1rem; color:var(--text); margin-left:6px; }
-.navCenter { display:flex; gap:24px; align-items:center; }
-.navLink { color:var(--muted); text-decoration:none; font-weight:600; padding:6px 10px; border-radius:6px; }
-.navLink.active { color:var(--text); border-bottom:2px solid var(--accent); }
-.headerRight { display:flex; gap:12px; align-items:center; }
-.iconBtn { width:36px; height:36px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; border:1px solid transparent; background:transparent; cursor:pointer; color:var(--icon-muted); }
-.iconBtn:hover { background:var(--nav-button-bg); color:var(--text); }
-.avatar img { width:34px; height:34px; border-radius:50%; object-fit:cover; border:1px solid var(--card-border); }
+
+.appHeader.hidden {
+  transform: translateY(-100%);
+}
+
+.appHeader.visible {
+  transform: translateY(0);
+}
+
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  margin-left: 6px;
+}
+
+.navWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navCenter {
+  display: flex;
+  gap: 24px;
+}
+
+/* ------------------------
+   NAV LINKS
+------------------------- */
+.navLink {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  opacity: 0.8;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color .25s, opacity .25s;
+}
+
+.navLink:hover {
+  opacity: 1;
+}
+
+/* Underline active link */
+.navLink.active {
+  opacity: 1;
+}
+
+.navLink.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ------------------------
+   DARK MODE FIXES
+------------------------- */
+[data-theme="dark"] .navLink {
+  color: var(--text-primary-dark); /* Your global variable */
+  opacity: 0.75;
+}
+
+[data-theme="dark"] .navLink:hover {
+  opacity: 1;
+}
+
+/* Active state in dark mode (uses accent — NOT yellow block) */
+[data-theme="dark"] .navLink.active {
+  color: var(--text-dark); /* optional: keeps text clear */
+}
+
+[data-theme="dark"] .navLink.active::after {
+  background: var(--accent);
+}
+
+/* ------------------------
+   RIGHT SIDE ICONS
+------------------------- */
+.headerRight {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.iconBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: var(--icon-muted);
+  transition: background .25s, color .25s, border .25s;
+}
+
+.iconBtn:hover {
+  background: var(--nav-button-bg);
+  color: var(--text);
+}
+
+.avatar img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--card-border);
+}
