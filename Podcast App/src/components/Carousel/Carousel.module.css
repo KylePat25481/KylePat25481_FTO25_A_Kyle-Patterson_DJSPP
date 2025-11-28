@@ -1,69 +1,119 @@
+/* WRAPPER */
 .carouselWrapper {
   position: relative;
+  padding: 20px 0;
   display: flex;
   align-items: center;
-  gap: 8px;
-  overflow: hidden;
-  padding: 10px 0;
 }
 
+/* SCROLLER */
 .carouselRow {
   display: flex;
+  gap: 16px;
   overflow-x: auto;
-  scroll-behavior: smooth;
-  gap: 12px;
-  padding: 0 8px;
+  padding: 8px 36px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.carouselRow::-webkit-scrollbar {
+  display: none;
 }
 
-.carouselCard {
-  min-width: 140px;
-  max-width: 160px;
-  flex-shrink: 0;
+/* NAV BUTTONS */
+.navBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: none;
+  background: var(--nav-button-bg);
+  color: var(--text);
   cursor: pointer;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.2s;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+.navBtn:first-of-type {
+  left: 0;
+}
+
+.navBtn:last-of-type {
+  right: 0;
+}
+
+/* CARD */
+.carouselCard {
+  background: var(--card-bg);
+  padding: 0.8rem;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s, color 0.2s;
+  width: 160px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .carouselCard:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
+/* IMAGE */
 .cardImg {
   width: 100%;
-  aspect-ratio: 1/1;
+  height: 140px;
+  border-radius: 8px;
   object-fit: cover;
-  border-radius: 16px;
 }
 
+/* TITLE */
 .cardTitle {
-  font-size: 0.85rem;
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-top: 6px;
-  text-align: center;
   color: var(--text);
 }
 
+/* GENRE TAGS */
 .chips {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 4px;
+  gap: 6px;
 }
 
 .chip {
-  font-size: 0.7rem;
-  background: var(--accent);
-  color: white;
-  padding: 2px 6px;
-  border-radius: 10px;
+  background: var(--chip-bg);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--chip-text);
 }
 
-.navBtn {
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  color: var(--text-muted);
+/* ---------------- Dark mode overrides ---------------- */
+[data-theme="dark"] .carouselCard {
+  background: #3c445b;
+  border: 1px solid #333;
+  color: #eee;
+}
+
+[data-theme="dark"] .navBtn {
+  background: #747272;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .chip {
+  background: rgba(72, 74, 92, 0.45);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+[data-theme="dark"] .cardTitle {
+  color: #eee;
 }
