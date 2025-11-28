@@ -2,15 +2,12 @@ import { useState } from "react";
 import styles from "./PodcastDetail.module.css";
 import { formatDate } from "../../utils/formatDate";
 import GenreTags from "../UI/GenreTags";
-import Carousel from "../Carousel/Carousel"; // <-- import carousel
+import Carousel from "../Carousel/Carousel";
 
-/**
- * PodcastDetail renders full show with seasons & episodes.
- */
 export default function PodcastDetail({
   podcast,
   genres,
-  recommendedPodcasts = [], // <-- pass in recommended shows
+  recommendedPodcasts = [],
   onBack,
   onPlayEpisode,
   onToggleFavourite,
@@ -20,14 +17,12 @@ export default function PodcastDetail({
   const season = podcast.seasons[selectedSeasonIndex];
 
   const handleClickRecommended = (item) => {
-    // replace with navigation or modal logic
     console.log("Clicked recommended show:", item.title);
-    // For example: navigate(`/show/${item.id}`)
   };
 
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => onBack && onBack()}>
+      <button className={styles.backButton} onClick={onBack}>
         ← Back
       </button>
 
@@ -36,24 +31,20 @@ export default function PodcastDetail({
         <div>
           <h1 className={styles.title}>{podcast.title}</h1>
           <p className={styles.description}>{podcast.description}</p>
-
           <div className={styles.metaInfo}>
             <div className={styles.seasonInfo}>
               <div>
                 <p>Genres</p>
                 <GenreTags genres={genres || podcast.genres} />
               </div>
-
               <div>
                 <p>Last Updated:</p>
                 <strong>{formatDate(podcast.updated)}</strong>
               </div>
-
               <div>
                 <p>Total Seasons:</p>
                 <strong>{podcast.seasons.length} Seasons</strong>
               </div>
-
               <div>
                 <p>Total Episodes:</p>
                 <strong>
@@ -65,7 +56,6 @@ export default function PodcastDetail({
         </div>
       </div>
 
-      {/* Season Details */}
       <div className={styles.seasonDetails}>
         <div className={styles.seasonIntro}>
           <div className={styles.left}>
@@ -93,10 +83,22 @@ export default function PodcastDetail({
 
         <div className={styles.episodeList}>
           {season.episodes.map((ep, index) => {
-            const episodeId = `${podcast.id}_s${selectedSeasonIndex}_e${index}`;
+            const payload = {
+              id: ep.id || `${podcast.id}_s${selectedSeasonIndex}_e${index}`,
+              title: ep.title,
+              audio: ep.audio || ep.file || ep.enclosure,
+              image: ep.image || podcast.image,
+              podcastId: podcast.id,
+              podcastTitle: podcast.title,
+              podcastImage: podcast.image,
+              season: selectedSeasonIndex + 1,
+              number: index + 1,
+              addedAt: new Date().toISOString(),
+            };
+
             return (
-              <div key={index} className={styles.episodeCard}>
-                <img className={styles.episodeCover} src={season.image} alt="" />
+              <div key={payload.id} className={styles.episodeCard}>
+                <img className={styles.episodeCover} src={payload.image} alt={payload.title} />
                 <div className={styles.episodeInfo}>
                   <p className={styles.episodeTitle}>
                     Episode {index + 1}: {ep.title}
@@ -104,25 +106,15 @@ export default function PodcastDetail({
                   <p className={styles.episodeDesc}>{ep.description}</p>
                 </div>
 
-                <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
-                  <button onClick={() => onPlayEpisode && onPlayEpisode(ep, index, selectedSeasonIndex)}>
+                <div
+                  style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}
+                >
+                  <button onClick={() => onPlayEpisode && onPlayEpisode(payload)}>
                     ▶ Play
                   </button>
 
-                  <button
-                    onClick={() =>
-                      onToggleFavourite &&
-                      onToggleFavourite({
-                        episodeId,
-                        title: ep.title,
-                        showId: podcast.id,
-                        showTitle: podcast.title,
-                        seasonIndex: selectedSeasonIndex,
-                        extra: { episodeIndex: index },
-                      })
-                    }
-                  >
-                    {isFavourited && isFavourited(episodeId) ? "♥" : "♡"}
+                  <button onClick={() => onToggleFavourite && onToggleFavourite(payload)}>
+                    {isFavourited && isFavourited(payload) ? "♥" : "♡"}
                   </button>
                 </div>
               </div>
@@ -131,7 +123,6 @@ export default function PodcastDetail({
         </div>
       </div>
 
-      {/* Recommended Podcasts Carousel */}
       {recommendedPodcasts.length > 0 && (
         <div style={{ marginTop: "2rem" }}>
           <h2>Recommended Shows</h2>
