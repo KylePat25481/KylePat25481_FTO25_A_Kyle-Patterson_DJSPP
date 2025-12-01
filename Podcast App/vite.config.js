@@ -7,4 +7,5 @@ export default defineConfig({
     outDir: "dist",
   },
   base: process.env.VITE_BASE_PATH || "/KylePat25481_FTO25_A_Kyle-Patterson_DJSPP",
+  base: "/", // Use root base path for Vercel
 });
